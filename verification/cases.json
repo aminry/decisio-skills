@@ -1,0 +1,68 @@
+{
+  "decisio-setup": {
+    "positive": [
+      "Set up decisio on my GPU.",
+      "Connect this project to my decisio endpoint.",
+      "Run decisio with MLX on my Apple silicon machine.",
+      "Help me start the decisio Ollama listing.",
+      "Check whether my existing decisio server is ready.",
+      "Choose a decisio serving path for my hardware.",
+      "Configure a local decisio endpoint for this project.",
+      "Install decisio for GPU serving and send a first request."
+    ],
+    "negative": [
+      "Install an nginx web server.",
+      "Explain HTTP status codes.",
+      "Review a generic Dockerfile.",
+      "Help me configure a PostgreSQL connection.",
+      "Pick a cloud GPU for an unrelated project.",
+      "Explain the Codex model selector.",
+      "Set up a Flask hello-world application.",
+      "What is a probability distribution?"
+    ]
+  },
+  "decisio-request": {
+    "positive": [
+      "Write a decisio request to route a ticket.",
+      "Use decisio to ask whether this message asks for a refund.",
+      "Define a decisio score for incident severity.",
+      "Show me how to read a decisio choice answer.",
+      "Create a JSON request with two decisio questions.",
+      "Design distinct options for my decisio classifier.",
+      "Test a decisio request against my configured endpoint.",
+      "Turn this rubric into a decisio score question."
+    ],
+    "negative": [
+      "Explain classification algorithms in general.",
+      "Write a prompt for an unrelated chat model.",
+      "Install decisio on my GPU.",
+      "Fix this SQL query.",
+      "Explain a Boolean condition in JavaScript.",
+      "Calculate the mean of these numbers.",
+      "Review my Python formatting.",
+      "How do I configure a coding assistant?"
+    ]
+  },
+  "decisio-integrate": {
+    "positive": [
+      "Integrate decisio ticket routing into this backend.",
+      "Add a decisio guardrail to my existing workflow.",
+      "Move this System One client to my decisio server.",
+      "Add a timeout and review path to this decisio caller.",
+      "Use certified decisio answers in my application policy.",
+      "Connect my existing Python service to decisio.",
+      "Add decisio decisions to this TypeScript worker.",
+      "Handle decisio service failures in this queue processor."
+    ],
+    "negative": [
+      "Explain the decisio request format without changing an app.",
+      "Run a decisio server on my GPU.",
+      "Refactor this unrelated HTTP client.",
+      "Build a calculator website.",
+      "Replace the model powering my coding assistant.",
+      "Explain error handling in general.",
+      "Write a database migration.",
+      "Configure a CI cache."
+    ]
+  }
+}

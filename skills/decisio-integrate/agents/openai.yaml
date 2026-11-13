@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integrate decisio"
+  short_description: "Add decisio decisions to an existing backend"
+  default_prompt: "Use $decisio-integrate to add decision routing to this backend."

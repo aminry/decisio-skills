@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build a decisio request"
+  short_description: "Write typed decisions your application can read"
+  default_prompt: "Use $decisio-request to write and check a support-routing request."
