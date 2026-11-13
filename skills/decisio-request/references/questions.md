@@ -38,4 +38,27 @@ Unknown fields can be ignored rather than rejected, so a misspelled field is not
 Check expected question names/types, option keys, finite probability values in range, and distributions that sum to approximately one. Do not require exact numeric outputs.
 The service timeout should allow for the first model read; keep it configurable.
 
-For certification, read the named answer's `certified` and top-level `certificate_kind`; `certificate` is an ID string. False or missing is not certified. For gold-only actions, require the kind `"gold"`; `"agreement"` bounds agreement with the model instead. A high probability alone is not a certificate. The [task guide](https://opendecisio.com/docs/tasks/certify/) explains teaching and certification.
+## Certification fields
+
+Read certification fields on the named answer: `answers.queue.certified`, `answers.queue.certificate_kind` and `answers.queue.certificate` for a question named `queue`.
+These fields belong to that answer, not to the response root.
+`certificate` is an ID string, not an object containing the kind; the certificate object returned by task registration has a different shape.
+
+This excerpt shows the certification fields of an illustrative decision response; other fields are omitted:
+
+```json
+{
+  "answers": {
+    "queue": {
+      "certified": true,
+      "certificate": "support-queue#example",
+      "certificate_kind": "gold"
+    }
+  }
+}
+```
+
+For a gold-only action, first read `answer = response["answers"]["queue"]`, then require `answer.get("certified") is True` and `answer.get("certificate_kind") == "gold"`.
+False, missing or unknown fields go to review; `"agreement"` concerns matching the model rather than correctness against human labels.
+A high probability alone is not a certificate.
+The [task guide](https://opendecisio.com/docs/tasks/certify/) explains teaching and certification.
