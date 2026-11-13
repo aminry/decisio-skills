@@ -1,0 +1,14 @@
+{
+  "state": "My card was charged twice. Please refund one charge.",
+  "questions": {
+    "queue": {
+      "type": "choice",
+      "instructions": "Which team should handle this ticket?",
+      "criteria": {
+        "billing": "Charges, invoices and refunds",
+        "access": "Login and account permissions",
+        "other": "Messages that fit neither queue"
+      }
+    }
+  }
+}

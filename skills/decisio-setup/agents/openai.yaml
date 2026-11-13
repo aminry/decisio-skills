@@ -1,0 +1,4 @@
+interface:
+  display_name: "Set up decisio"
+  short_description: "Run decisio on your hardware or connect an endpoint"
+  default_prompt: "Use $decisio-setup to connect this project to a decisio server."
