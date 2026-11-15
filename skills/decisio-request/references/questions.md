@@ -1,6 +1,6 @@
 # Requests and answers
 
-Reference baseline: decisio 0.46.0. [HTTP API](https://opendecisio.com/docs/api/) is the source for fields beyond these examples.
+Reference baseline: decisio 0.48.0. [HTTP API](https://opendecisio.com/docs/api/) is the source for fields beyond these examples.
 
 ## HTTP body
 
@@ -30,6 +30,12 @@ A Boolean in your application is a policy decision; a value near the middle can 
 `type: "score"`; `criteria` is an ordered array of level descriptions, lowest first.
 `score` is the probability-weighted mean level, starting at zero, so it can be fractional.
 `probabilities` is keyed by string level indices; `legend` maps them to descriptions. Look at the distribution when a mean could hide a split answer.
+
+## Images and Box
+
+A Gemma server started with `--images on` (vLLM, or a Mac with `--backend mlx` and the extra `mlx-images`) reads images in the request's `images` list, in `assets` placeholders or in `data:image` URIs, and answers noul, choice and score questions about them.
+A `box` question (`"type": "box"`, `instructions` naming what to find) answers `box` with `top`, `bottom`, `left` and `right` as fractions of the image, and a `confidence`. It always returns a box: read `confidence` or ask a noul question beside it.
+Box is refused with 400 on a Mac and on the Qwen `--image-model` route, and the Ollama listings have no Box question.
 
 ## Errors and verification
 
