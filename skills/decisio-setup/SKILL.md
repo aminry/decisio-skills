@@ -9,7 +9,7 @@ Get a working endpoint and one successful decision request for the user's projec
 Keep the user's chosen hardware and existing service when they have specified them.
 
 1. Inspect the project's setup instructions and runtime. Check whether an endpoint is already configured before installing anything.
-2. Read [running.md](references/running.md) for the chosen serving path. Use the project's installed compatible version; for a fresh setup, these examples target decisio 0.46.0. Check the installed version against the reference before using newer fields.
+2. Read [running.md](references/running.md) for the chosen serving path. Use the project's installed compatible version; for a fresh setup, these examples target decisio 0.48.0. Check the installed version against the reference before using newer fields.
 3. For an existing endpoint, check health and models, then send the bundled [request](assets/request.json). Do not replace or restart an existing service just to test a client.
 4. For a fresh server, select GPU, MLX or Ollama from the available hardware. Explain the model download and memory requirement before starting a new download, and keep actions within the user's authorization. CPU development is only a secondary option when the user needs contract tests without serving hardware.
 5. Start the selected service, wait for its documented readiness signal, then send the request to its actual port. For Ollama, include its listing name in `model` and use its own endpoint; it is not the decisio server.
