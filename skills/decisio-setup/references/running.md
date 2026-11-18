@@ -1,6 +1,6 @@
 # Running decisio
 
-These commands target decisio 0.48.0. The [current running guides](https://opendecisio.com/docs/) describe supported machines and versions.
+These commands target decisio 0.50.2. The [current running guides](https://opendecisio.com/docs/) describe supported machines and versions.
 Use an existing endpoint first when the user supplies one.
 
 ## Linux and an NVIDIA GPU
@@ -11,14 +11,14 @@ The first start downloads the model. Do not present a successful install as a re
 ```bash
 python3.12 -m venv .venv
 . .venv/bin/activate
-pip install 'decisio[serve]==0.48.0'
+pip install 'decisio[serve]==0.50.2'
 python -m decisio.serve.vllm_engine
 ```
 
 For the full locked dependency environment, clone the release and use uv instead:
 
 ```bash
-git clone --branch v0.48.0 https://github.com/aminry/decisio
+git clone --branch v0.50.2 https://github.com/aminry/decisio
 cd decisio
 uv sync --extra serve --frozen
 uv run python -m decisio.serve.vllm_engine
@@ -38,7 +38,7 @@ Do not bind it to a public interface without the user's chosen authenticated pro
 Use a build that fits memory. A 32 GB machine uses the 12B; the documented 31B paths need more memory. Check the [MLX guide](https://opendecisio.com/docs/deploy/mac/) before choosing the 31B.
 
 ```bash
-git clone --branch v0.48.0 https://github.com/aminry/decisio
+git clone --branch v0.50.2 https://github.com/aminry/decisio
 cd decisio
 uv sync --extra mlx
 uv run python -m decisio.serve.vllm_engine --backend mlx --base gemma-4-12b --model mlx-community/gemma-4-12B-it-6bit
