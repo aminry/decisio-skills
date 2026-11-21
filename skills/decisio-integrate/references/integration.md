@@ -1,6 +1,6 @@
 # Backend integration
 
-Baseline: decisio 0.51.1. See [client examples](https://opendecisio.com/docs/use-from/), [HTTP API](https://opendecisio.com/docs/api/) and [task usage](https://opendecisio.com/docs/tasks/).
+Baseline: decisio 0.52.0. See [client examples](https://opendecisio.com/docs/use-from/), [HTTP API](https://opendecisio.com/docs/api/) and [task usage](https://opendecisio.com/docs/tasks/).
 
 ## Client configuration
 
@@ -39,6 +39,7 @@ This is an illustrative response shape, not a model recording:
 ```
 
 Task persistence is per server unless configured with `--tasks-dir` or a shared `--task-store`. Registering a production task, replacing it or changing deployment flags requires the corresponding user authorization; do not do it merely to test a client.
+After a decisio upgrade, `/health` lists under `systemone.task_store.readout.calibration_refit.tasks` the tasks whose calibration must be fitted again: until each is registered again with its same body, its questions are answered as without the task and are not certified.
 
 ## Application boundary
 

@@ -52,7 +52,7 @@ You can also ask in ordinary language:
 
 Say which hardware or endpoint you want to use.
 Setup prioritizes GPU, MLX and Ollama; a CPU stand-in is only for development contract tests.
-These references target decisio **0.51.1**, and the setup workflow checks the installed version before using its fields.
+These references target decisio **0.52.0**, and the setup workflow checks the installed version before using its fields.
 
 ## Update or uninstall
 
