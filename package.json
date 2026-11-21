@@ -1,6 +1,6 @@
 {
   "name": "decisio-skills",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
@@ -9,5 +9,5 @@
     "test": "node --test test/*.test.mjs",
     "check": "node scripts/check.mjs"
   },
-  "decisioVersion": "0.52.0"
+  "decisioVersion": "0.53.0"
 }

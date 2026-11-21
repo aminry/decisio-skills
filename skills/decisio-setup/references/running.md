@@ -1,6 +1,6 @@
 # Running decisio
 
-These commands target decisio 0.52.0. The [current running guides](https://opendecisio.com/docs/) describe supported machines and versions.
+These commands target decisio 0.53.0. The [current running guides](https://opendecisio.com/docs/) describe supported machines and versions.
 Use an existing endpoint first when the user supplies one.
 
 ## Linux and an NVIDIA GPU
@@ -10,7 +10,7 @@ Use Python 3.12 and a driver supporting CUDA 13.0. Start with Decisio v3, a Gemm
 ```bash
 python3.12 -m venv .venv
 . .venv/bin/activate
-pip install 'decisio[serve]==0.52.0'
+pip install 'decisio[serve]==0.53.0'
 python -m decisio.serve.vllm_engine --base tachara-ai/Decisio-12b-tuned-v3-calibrated
 ```
 
@@ -21,7 +21,7 @@ With no `--base` the server serves Gemma 4 31B, measured on a 96 GB card; it als
 For the full locked dependency environment, clone the release and use uv instead:
 
 ```bash
-git clone --branch v0.52.0 https://github.com/aminry/decisio
+git clone --branch v0.53.0 https://github.com/aminry/decisio
 cd decisio
 uv sync --extra serve --frozen
 uv run python -m decisio.serve.vllm_engine --base tachara-ai/Decisio-12b-tuned-v3-calibrated
@@ -41,7 +41,7 @@ Do not bind it to a public interface without the user's chosen authenticated pro
 Use a build that fits memory. Decisio v3's 8-bit MLX build (12 GB) fits a 32 GB Mac, and `-v3-mlx-calibrated` is its 6-bit build (9 GB); the documented 31B paths need more memory. Check the [MLX guide](https://opendecisio.com/docs/deploy/mac/) before choosing the 31B.
 
 ```bash
-git clone --branch v0.52.0 https://github.com/aminry/decisio
+git clone --branch v0.53.0 https://github.com/aminry/decisio
 cd decisio
 uv sync --extra mlx
 uv run python -m decisio.serve.vllm_engine --backend mlx --base tachara-ai/Decisio-12b-tuned-v3-mlx8-calibrated
