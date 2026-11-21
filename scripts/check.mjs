@@ -2,6 +2,11 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { names } from './install.mjs';
 
+// The floor scheme: the skills work with the latest decisio from minDecisio on. No install or clone pins a release, and
+// every floor the docs state is minDecisio.
+const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+const floor = pkg.minDecisio;
+
 const problems = [];
 for (const name of names) {
   const root = resolve('skills', name);
@@ -12,6 +17,8 @@ for (const name of names) {
   for (const file of walk(root)) {
     const text = readFileSync(file, 'utf8');
     if (/TODO|\bTBD\b/.test(text)) problems.push(`${file}: unfinished content`);
+    if (/decisio\[[^\]]+\]==|--branch v\d/.test(text)) problems.push(`${file}: pins a decisio release; install the latest instead`);
+    for (const m of text.matchAll(/decisio \**(\d+\.\d+\.\d+)\** or later/g)) if (m[1] !== floor) problems.push(`${file}: says decisio ${m[1]} or later, but minDecisio is ${floor}`);
     if (file.endsWith('.md')) for (const match of text.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)) {
       if (/^https?:/.test(match[1])) continue;
       const target = resolve(dirname(file), match[1]);
@@ -21,5 +28,8 @@ for (const name of names) {
   const ui = readFileSync(join(root, 'agents/openai.yaml'), 'utf8');
   if (!ui.includes(`$${name}`)) problems.push(`${name}: prompt does not invoke this skill`);
 }
+if (!/^\d+\.\d+\.\d+$/.test(floor ?? '')) problems.push('package.json: minDecisio must be a release such as 0.52.0');
+if ('decisioVersion' in pkg) problems.push('package.json: decisioVersion is replaced by minDecisio');
+for (const file of ['README.md']) for (const m of readFileSync(file, 'utf8').matchAll(/decisio \**(\d+\.\d+\.\d+)\** or later/g)) if (m[1] !== floor) problems.push(`${file}: says decisio ${m[1]} or later, but minDecisio is ${floor}`);
 if (problems.length) { console.error(problems.join('\n')); process.exitCode = 1; }
-else console.log('skills: three self-contained workflows, valid metadata and resource links');
+else console.log(`skills: three self-contained workflows, valid metadata and resource links, for decisio ${floor} or later`);

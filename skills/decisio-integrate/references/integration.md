@@ -1,6 +1,6 @@
 # Backend integration
 
-Baseline: decisio 0.52.0. See [client examples](https://opendecisio.com/docs/use-from/), [HTTP API](https://opendecisio.com/docs/api/) and [task usage](https://opendecisio.com/docs/tasks/).
+Baseline: decisio 0.52.0 or later. See [client examples](https://opendecisio.com/docs/use-from/), [HTTP API](https://opendecisio.com/docs/api/) and [task usage](https://opendecisio.com/docs/tasks/).
 
 ## Client configuration
 

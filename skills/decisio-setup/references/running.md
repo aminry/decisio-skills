@@ -1,6 +1,6 @@
 # Running decisio
 
-These commands target decisio 0.52.0. The [current running guides](https://opendecisio.com/docs/) describe supported machines and versions.
+These commands install the latest decisio; the skills need decisio 0.52.0 or later. The [current running guides](https://opendecisio.com/docs/) describe supported machines and versions.
 Use an existing endpoint first when the user supplies one.
 
 ## Linux and an NVIDIA GPU
@@ -10,7 +10,7 @@ Use Python 3.12 and a driver supporting CUDA 13.0. Start with Decisio v3, a Gemm
 ```bash
 python3.12 -m venv .venv
 . .venv/bin/activate
-pip install 'decisio[serve]==0.52.0'
+pip install 'decisio[serve]'
 python -m decisio.serve.vllm_engine --base tachara-ai/Decisio-12b-tuned-v3-calibrated
 ```
 
@@ -18,11 +18,12 @@ Use `tachara-ai/Decisio-12b-tuned-v3-commit` when the code acts on yes/no answer
 The first start downloads the model and the calculator's small tagger. Do not present a successful install as a ready server.
 With no `--base` the server serves Gemma 4 31B, measured on a 96 GB card; it also starts on an 80 GB H100.
 
-For the full locked dependency environment, clone the release and use uv instead:
+For the full locked dependency environment, clone the latest release and use uv instead:
 
 ```bash
-git clone --branch v0.52.0 https://github.com/aminry/decisio
+git clone https://github.com/aminry/decisio
 cd decisio
+git checkout "$(git describe --tags --abbrev=0)"   # the latest release
 uv sync --extra serve --frozen
 uv run python -m decisio.serve.vllm_engine --base tachara-ai/Decisio-12b-tuned-v3-calibrated
 ```
@@ -41,8 +42,9 @@ Do not bind it to a public interface without the user's chosen authenticated pro
 Use a build that fits memory. Decisio v3's 8-bit MLX build (12 GB) fits a 32 GB Mac, and `-v3-mlx-calibrated` is its 6-bit build (9 GB); the documented 31B paths need more memory. Check the [MLX guide](https://opendecisio.com/docs/deploy/mac/) before choosing the 31B.
 
 ```bash
-git clone --branch v0.52.0 https://github.com/aminry/decisio
+git clone https://github.com/aminry/decisio
 cd decisio
+git checkout "$(git describe --tags --abbrev=0)"   # the latest release
 uv sync --extra mlx
 uv run python -m decisio.serve.vllm_engine --backend mlx --base tachara-ai/Decisio-12b-tuned-v3-mlx8-calibrated
 ```

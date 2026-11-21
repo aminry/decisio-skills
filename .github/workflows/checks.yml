@@ -3,6 +3,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  # The skills install the latest decisio, so a decisio release is checked here without a new package.
+  schedule:
+    - cron: '23 6 * * 1'
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -15,3 +19,30 @@ jobs:
           node-version: 22
       - run: npm test
       - run: npm run check
+  # The latest decisio from PyPI, at or above minDecisio, with its CPU development server answering the skills' request.
+  latest-decisio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 22
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - name: The latest decisio, against the floor
+        id: latest
+        run: node scripts/latest-decisio.mjs >> "$GITHUB_OUTPUT"
+      - name: Start its CPU development server
+        env:
+          VERSION: ${{ steps.latest.outputs.version }}
+        run: |
+          git clone --depth 1 --branch "v$VERSION" https://github.com/aminry/decisio "$RUNNER_TEMP/decisio"
+          cd "$RUNNER_TEMP/decisio"
+          uv sync --extra dev --frozen
+          nohup uv run python -m decisio.serve.vllm_engine --backend hf --model Qwen/Qwen3-0.6B-Base > "$RUNNER_TEMP/server.log" 2>&1 &
+          for i in $(seq 1 180); do curl -sf http://127.0.0.1:8000/health > /dev/null && exit 0; sleep 5; done
+          tail -50 "$RUNNER_TEMP/server.log"; exit 1
+      - name: The skills' checks against it
+        run: node scripts/check-endpoint.mjs http://127.0.0.1:8000
+      - if: failure()
+        run: tail -80 "$RUNNER_TEMP/server.log" || true
