@@ -1,6 +1,6 @@
 # Requests and answers
 
-Reference baseline: decisio 0.50.2. [HTTP API](https://opendecisio.com/docs/api/) is the source for fields beyond these examples.
+Reference baseline: decisio 0.51.1. [HTTP API](https://opendecisio.com/docs/api/) is the source for fields beyond these examples.
 
 ## HTTP body
 
